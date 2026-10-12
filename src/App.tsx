@@ -78,6 +78,7 @@ export function App() {
         <SheetList
           sheets={sheets}
           loading={loading}
+          failed={error != null}
           onOpen={(id) => {
             void getSheet(id).then(setActive).catch(fail)
           }}

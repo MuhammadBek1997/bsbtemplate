@@ -1,6 +1,6 @@
 import type { Sheet, SheetCard } from './types'
 
-const OFFLINE = "Server ishlamayapti. bsb-api papkasidagi ishga-tushirish.bat ni oching."
+const OFFLINE = "Ma'lumotlar bazasiga ulanib bo'lmadi."
 
 interface Saved {
   sheet: Sheet

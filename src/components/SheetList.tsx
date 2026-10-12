@@ -5,13 +5,14 @@ import type { SheetCard } from '../lib/types'
 interface Props {
   sheets: SheetCard[]
   loading: boolean
+  failed?: boolean
   onOpen: (id: string) => void
   onCreate: () => void
   onClone: (id: string) => void
   onDelete: (id: string) => void
 }
 
-export function SheetList({ sheets, loading, onOpen, onCreate, onClone, onDelete }: Props) {
+export function SheetList({ sheets, loading, failed = false, onOpen, onCreate, onClone, onDelete }: Props) {
   const sorted = [...sheets].sort((a, b) => b.updatedAt - a.updatedAt)
 
   return (
@@ -26,7 +27,7 @@ export function SheetList({ sheets, loading, onOpen, onCreate, onClone, onDelete
 
       {loading ? (
         <p className="muted">Yuklanmoqda…</p>
-      ) : sorted.length === 0 ? (
+      ) : failed ? null : sorted.length === 0 ? (
         <div className="card empty">
           <p>Hali jadval yo'q. Boshlash uchun “Yangi jadval” tugmasini bosing.</p>
         </div>

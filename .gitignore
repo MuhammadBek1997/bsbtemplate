@@ -1,5 +1,11 @@
 node_modules
 dist
+.vercel
+bsb-api/node_modules/
+bsb-api/.env
+bsb-api/data/
 *.log
 # O'quvchilar ismlari bor namuna fayl
 claudga.xlsx
+
+.vercel

@@ -1,0 +1,460 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1c2330;
+  --muted: #667085;
+  --border: #d5d9e0;
+  --accent: #1d4ed8;
+  --danger: #b42318;
+  --warn-bg: #fff4d6;
+  --yellow: #ffff00;
+  font-family: system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 15px;
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+h2,
+h3 {
+  margin: 0 0 12px;
+}
+
+h3 {
+  font-size: 1.05rem;
+}
+
+p {
+  margin: 8px 0;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--danger);
+}
+
+.warn {
+  background: var(--warn-bg);
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+button.danger {
+  color: var(--danger);
+}
+
+button.link {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--accent);
+  text-align: left;
+}
+
+button.link.title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+button.icon {
+  padding: 2px 8px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+button.icon:hover {
+  color: var(--danger);
+}
+
+input,
+select,
+textarea {
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  width: 100%;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  width: auto;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+input.invalid {
+  background: #fde8e6;
+  outline: 2px solid var(--danger);
+  outline-offset: -1px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.field > span {
+  display: flex;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 0 12px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+}
+
+.tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.task input {
+  width: 58px;
+  text-align: center;
+}
+
+/* Jadval */
+
+.sheet-title {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table.grid {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.grid th,
+.grid td {
+  border: 1px solid #8a94a6;
+  padding: 4px 6px;
+  text-align: center;
+}
+
+.grid th {
+  background: #eef1f6;
+  font-size: 0.9rem;
+}
+
+.grid tfoot td {
+  font-weight: 600;
+  background: #f7f8fa;
+}
+
+.grid .col-num {
+  width: 40px;
+}
+
+.grid .col-name {
+  min-width: 200px;
+  text-align: left;
+}
+
+.grid .col-pct {
+  background: var(--yellow);
+  font-weight: 600;
+}
+
+.grid .col-total {
+  font-weight: 600;
+}
+
+.grid .col-del {
+  width: 34px;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.grid td input {
+  border-color: transparent;
+  background: transparent;
+  padding: 4px;
+}
+
+.grid td input:hover {
+  border-color: var(--border);
+}
+
+.grid .col-score {
+  min-width: 70px;
+}
+
+.grid .col-score input {
+  text-align: center;
+}
+
+.cell-pct {
+  display: block;
+  min-height: 1em;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.grid td.empty {
+  padding: 20px;
+  color: var(--muted);
+}
+
+.add-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.add-row input {
+  flex: 1;
+  min-width: 200px;
+  max-width: 340px;
+}
+
+/* Ro'yxat */
+
+.list-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.list-main {
+  flex: 1;
+  min-width: 240px;
+}
+
+.card.empty {
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Dialog */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 12px;
+  overflow-y: auto;
+}
+
+.dialog {
+  background: var(--card);
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 560px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.col-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 18px;
+}
+
+.name-list {
+  max-height: 260px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px 6px 6px 40px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.badge {
+  background: var(--warn-bg);
+  border-radius: 4px;
+  padding: 0 6px;
+  font-size: 0.8rem;
+}
+
+/* Chop etish */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  main {
+    max-width: none;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .card {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .table-wrap {
+    overflow: visible;
+  }
+
+  .grid {
+    font-size: 11pt;
+  }
+
+  .grid th,
+  .grid td {
+    border-color: #000;
+  }
+
+  .grid th,
+  .grid tfoot td {
+    background: none;
+  }
+
+  .grid .col-pct {
+    background: var(--yellow);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .grid .col-name {
+    min-width: 0;
+  }
+
+  .grid td input {
+    border: none;
+    padding: 0;
+  }
+
+  .cell-pct {
+    color: #000;
+  }
+
+  .grid tr {
+    break-inside: avoid;
+  }
+}

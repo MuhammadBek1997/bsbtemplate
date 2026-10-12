@@ -1,0 +1,5 @@
+node_modules
+dist
+*.log
+# O'quvchilar ismlari bor namuna fayl
+claudga.xlsx

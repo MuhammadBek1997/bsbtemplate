@@ -1,11 +1,13 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { createSheet, listSheets } from '../bsb-api/src/sheetsRepo.js'
-import { blankSheetWrite, isEmptyBody, parseSheetWrite } from '../bsb-api/src/validate.js'
-import { database, send, sendError, sendSheet } from '../server/respond'
+import { requireAccount } from '../api-lib/bsb-api/src/accounts.js'
+import { createSheet, listSheets } from '../api-lib/bsb-api/src/sheetsRepo.js'
+import { blankSheetWrite, isEmptyBody, parseSheetWrite } from '../api-lib/bsb-api/src/validate.js'
+import { database, send, sendError, sendSheet } from '../api-lib/server/respond.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const db = await database()
+    await requireAccount(db.users, req.headers.authorization)
     if (req.method === 'GET') {
       send(res, 200, { sheets: await listSheets(db.sheets) })
       return

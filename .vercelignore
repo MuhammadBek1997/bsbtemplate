@@ -1,0 +1,4 @@
+bsb-api/.env
+bsb-api/node_modules
+.tmp-*
+.vercel-events.json

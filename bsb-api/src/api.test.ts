@@ -15,6 +15,8 @@ let memory: MongoMemoryServer
 let mongoUri = ''
 let dbSeq = 0
 
+process.env.AUTH_SECRET = 'test-secret-value-16'
+
 before(async () => {
   memory = await MongoMemoryServer.create()
   mongoUri = memory.getUri()
@@ -27,6 +29,25 @@ after(async () => {
 async function withApp(run: (app: FastifyInstance, db: MongoHandle) => Promise<void>): Promise<void> {
   const db = await connectMongo(mongoUri, `bsb_test_${dbSeq++}`)
   const app = await buildApp(db)
+  const registered = await app.inject({
+    method: 'POST',
+    url: '/api/auth/register',
+    payload: {
+      name: 'Test User',
+      phone: '901112233',
+      school: '1-maktab',
+      district: 'Test tuman',
+      role: 'teacher',
+      password: 'sinov123',
+    },
+  })
+  const token = registered.json<{ token: string }>().token
+  const original = app.inject.bind(app)
+  app.inject = ((opts: { headers?: Record<string, string> } & Record<string, unknown>) =>
+    original({
+      ...opts,
+      headers: { authorization: `Bearer ${token}`, ...opts.headers },
+    })) as FastifyInstance['inject']
   try {
     await run(app, db)
   } finally {

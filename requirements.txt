@@ -1,0 +1,64 @@
+BSB / ChSB — Click va Payme ulash uchun kerakli narsalar
+Hali ulanmagan. Quyidagilar tayyor bo‘lgach, to‘lovni saytga qo‘shamiz.
+Kalitlarni shu faylga yozmang va GitHubga yuklamang. Ular Vercel Environment Variables da turadi.
+
+1. Avval qaror qilinadi
+- Kim to‘laydi: maktab, tuman yoki o‘qituvchi.
+- Nima sotiladi: oylik kirish, o‘quv yili yoki bir martalik ruxsat.
+- Narx, so‘mda. Payme summani tiyinda oladi (1 so‘m = 100 tiyin).
+- To‘lovdan keyin nima ochiladi: qaysi maktab, qancha muddat.
+- Pul qaytarish kerakmi.
+
+2. Tashkilot
+- Yuridik shaxs yoki YaTT.
+- Hisob-raqam ochilgan bank.
+- Click bilan shartnoma. Kabinet: https://merchant.click.uz
+- Payme Business bilan shartnoma. Kabinet: https://business.payme.uz
+- Sayt manzili allaqachon bor: https://bsbtemplate.vercel.app (HTTPS bo‘lishi shart, Vercel buni beradi).
+
+3. Click dan olinadigan ma’lumot
+- merchant_id
+- service_id
+- merchant_user_id
+- secret_key (maxfiy, faqat serverda)
+- Test xizmati alohida berilsa, uning service_id va secret_key i ham kerak.
+Kabinetda ikkita manzil ko‘rsatiladi. Ularni biz saytda ochamiz:
+- Prepare: https://bsbtemplate.vercel.app/api/payments/click/prepare
+- Complete: https://bsbtemplate.vercel.app/api/payments/click/complete
+
+4. Payme dan olinadigan ma’lumot
+- merchant_id (kassa ID)
+- Kassa kaliti, test
+- Kassa kaliti, ishchi (alohida, test kalitidan farq qiladi)
+- Login, Merchant API so‘rasa
+Kabinetdagi endpoint bitta. Payme o‘zi metodni JSON ichida aytadi:
+- https://bsbtemplate.vercel.app/api/payments/payme
+Ishlatiladigan metodlar: CheckPerformTransaction, CreateTransaction, PerformTransaction, CancelTransaction, CheckTransaction, GetStatement.
+Akkaunt maydoni: order_id (bizning to‘lov raqamimiz).
+
+5. Serverda saqlanadigan sozlamalar
+CLICK_MERCHANT_ID
+CLICK_SERVICE_ID
+CLICK_MERCHANT_USER_ID
+CLICK_SECRET_KEY
+PAYME_MERCHANT_ID
+PAYME_SECRET_KEY
+PAYME_SECRET_KEY_TEST
+Bu qiymatlar Vercelda Production va Preview uchun alohida qo‘yiladi. Kod ichiga yozilmaydi.
+
+6. Tekshirish
+Click: avval test service_id. Imzo MD5. Prepare (action 0) dan keyin Complete (action 1). Bir xil click_trans_id ikki marta yozilmasligi kerak.
+Payme test kassa: merchant_id 4056281, kalit test. To‘lov oynasi: https://checkout.test.paycom.uz
+Sinov kartalari (faqat test):
+- Humo 9860010099998881, muddat ixtiyoriy, 3D Secure bor, o‘tadi
+- UzCard 8600202020202023, muddat ixtiyoriy, OTP 111111 bo‘lsa o‘tadi
+Ishchi kalit qo‘yilguncha haqiqiy pul yechilmaydi.
+
+7. Biz yozadigan qism (kalitlar kelgach)
+- Ro‘yxatdan o‘tish tayyor: ism, telefon, tuman, maktab, kim to‘laydi (o‘qituvchi, maktab, tuman) va parol. To‘lov shu hisobga ulanadi.
+- To‘lov yozuvi: raqam, summa, holat (kutilmoqda, to‘landi, bekor), muddat, Click va Payme tranzaksiya raqami, hisob raqami.
+- Click prepare va complete.
+- Payme dagi oltita metod.
+- Saytda Click va Payme tugmalari.
+- To‘lov tasdiqlangach ruxsat muddati yangilanadi.
+- Qayta kelgan xabar ikkinchi marta pul yozmaydi.

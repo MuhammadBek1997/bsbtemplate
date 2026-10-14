@@ -34,7 +34,7 @@ export function sendError(res: VercelResponse, error: unknown): void {
     return
   }
   console.error(error)
-  const text = error instanceof Error ? error.message : ''
+  const text = error instanceof Error ? `${error.name} ${error.message}` : ''
   const blocked = /whitelist|not allowed|ServerSelection|ENOTFOUND|timed out|ECONNREFUSED/i.test(text)
   send(res, 500, {
     error: blocked

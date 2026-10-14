@@ -1,5 +1,6 @@
 node_modules
 dist
+api-lib
 .vercel
 bsb-api/node_modules/
 bsb-api/.env

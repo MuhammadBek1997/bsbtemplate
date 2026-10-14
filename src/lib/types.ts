@@ -1,5 +1,18 @@
 export type Kind = 'BSB' | 'ChSB'
 
+export type AccountRole = 'teacher' | 'school' | 'district'
+
+export interface Account {
+  id: string
+  name: string
+  phone: string
+  school: string
+  district: string
+  role: AccountRole
+  paidUntil: number | null
+  createdAt: number
+}
+
 export interface Task {
   id: string
   max: number

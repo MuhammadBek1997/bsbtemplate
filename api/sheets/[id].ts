@@ -1,13 +1,15 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { summarize } from '../../bsb-api/src/calc.js'
-import { HttpError } from '../../bsb-api/src/httpError.js'
-import { deleteSheet, getSheet, replaceSheet } from '../../bsb-api/src/sheetsRepo.js'
-import { parseSheetWrite } from '../../bsb-api/src/validate.js'
-import { database, queryId, send, sendError, sendSheet } from '../../server/respond'
+import { requireAccount } from '../../api-lib/bsb-api/src/accounts.js'
+import { summarize } from '../../api-lib/bsb-api/src/calc.js'
+import { HttpError } from '../../api-lib/bsb-api/src/httpError.js'
+import { deleteSheet, getSheet, replaceSheet } from '../../api-lib/bsb-api/src/sheetsRepo.js'
+import { parseSheetWrite } from '../../api-lib/bsb-api/src/validate.js'
+import { database, queryId, send, sendError, sendSheet } from '../../api-lib/server/respond.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse): Promise<void> {
   try {
     const db = await database()
+    await requireAccount(db.users, req.headers.authorization)
     const id = queryId(req)
     if (req.method === 'GET') {
       const sheet = await getSheet(db.sheets, id)

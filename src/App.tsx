@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { SheetEditor } from './components/SheetEditor'
 import { SheetList } from './components/SheetList'
-import { cloneSheet, createSheet, deleteSheet, getSheet, listSheets, putSheet } from './lib/api'
-import type { Sheet, SheetCard } from './lib/types'
+import { cloneSheet, createSheet, deleteSheet, getSheet, listSheets, putSheet, readToken } from './lib/api'
+import type { Account, Sheet, SheetCard } from './lib/types'
 
-export function App() {
+interface Props {
+  account: Account
+  onLogout: () => void
+}
+
+export function App({ account, onLogout }: Props) {
   const [sheets, setSheets] = useState<SheetCard[]>([])
   const [active, setActive] = useState<Sheet | null>(null)
   const [loading, setLoading] = useState(true)
@@ -38,7 +43,10 @@ export function App() {
       if (!sheet) return
       void fetch(`/api/sheets/${sheet.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(readToken() ? { Authorization: `Bearer ${readToken()}` } : {}),
+        },
         body: JSON.stringify(sheet),
         keepalive: true,
       })
@@ -76,6 +84,8 @@ export function App() {
         />
       ) : (
         <SheetList
+          accountName={account.name}
+          onLogout={onLogout}
           sheets={sheets}
           loading={loading}
           failed={error != null}

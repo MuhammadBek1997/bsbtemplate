@@ -3,6 +3,7 @@ import { sheetTitle } from '../lib/title'
 import type { SheetCard } from '../lib/types'
 
 interface Props {
+  accountName: string
   sheets: SheetCard[]
   loading: boolean
   failed?: boolean
@@ -10,9 +11,20 @@ interface Props {
   onCreate: () => void
   onClone: (id: string) => void
   onDelete: (id: string) => void
+  onLogout: () => void
 }
 
-export function SheetList({ sheets, loading, failed = false, onOpen, onCreate, onClone, onDelete }: Props) {
+export function SheetList({
+  accountName,
+  sheets,
+  loading,
+  failed = false,
+  onOpen,
+  onCreate,
+  onClone,
+  onDelete,
+  onLogout,
+}: Props) {
   const sorted = [...sheets].sort((a, b) => b.updatedAt - a.updatedAt)
 
   return (
@@ -20,6 +32,10 @@ export function SheetList({ sheets, loading, failed = false, onOpen, onCreate, o
       <div className="toolbar">
         <h1>BSB va ChSB monitoring jadvallari</h1>
         <div className="spacer" />
+        <span className="muted">{accountName}</span>
+        <button type="button" onClick={onLogout}>
+          Chiqish
+        </button>
         <button type="button" className="primary" onClick={onCreate}>
           + Yangi jadval
         </button>

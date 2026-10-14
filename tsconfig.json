@@ -10,8 +10,7 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "types": ["vite/client"]
+    "noUnusedParameters": true
   },
   "include": ["src", "vite.config.ts"]
 }
